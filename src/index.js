@@ -9,7 +9,6 @@ registerBlockBindingsSource({
 	name: "woo-block-bindings-demo/product-category-image",
 	label: __("Product Category Image", "custom-bindings"), // We can skip the label, as it was already defined in the server in the previous example.
 	getValues({ select, context }) {
-		console.log(context);
 		if (!context.termId) {
 			return {
 				url: "/wp-content/uploads/woocommerce-placeholder.png",
@@ -23,7 +22,6 @@ registerBlockBindingsSource({
 		);
 
 		const term = getProductCategory(termId);
-		console.log("term", term);
 		return {
 			url: term?.image.src,
 			alt: term?.image.alt,

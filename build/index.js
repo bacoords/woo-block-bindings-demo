@@ -124,7 +124,6 @@ __webpack_require__.r(__webpack_exports__);
     select,
     context
   }) {
-    console.log(context);
     if (!context.termId) {
       return {
         url: "/wp-content/uploads/woocommerce-placeholder.png",
@@ -138,7 +137,6 @@ __webpack_require__.r(__webpack_exports__);
       getProductCategory
     } = select(_woocommerce_data__WEBPACK_IMPORTED_MODULE_2__.EXPERIMENTAL_PRODUCT_CATEGORIES_STORE_NAME);
     const term = getProductCategory(termId);
-    console.log("term", term);
     return {
       url: term?.image.src,
       alt: term?.image.alt
