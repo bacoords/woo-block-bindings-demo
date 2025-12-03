@@ -144,7 +144,7 @@ __webpack_require__.r(__webpack_exports__);
   }
 });
 
-// Register a button that links to the Goodreads page of a book.
+// Register a block variation for the core/image block that uses the custom binding.
 (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockVariation)("core/image", {
   name: "woo-block-bindings-demo/product-category-image-block",
   title: "Product Category Image",

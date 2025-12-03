@@ -29,7 +29,7 @@ registerBlockBindingsSource({
 	},
 });
 
-// Register a button that links to the Goodreads page of a book.
+// Register a block variation for the core/image block that uses the custom binding.
 registerBlockVariation("core/image", {
 	name: "woo-block-bindings-demo/product-category-image-block",
 	title: "Product Category Image",
