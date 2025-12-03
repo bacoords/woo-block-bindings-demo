@@ -30,7 +30,7 @@ add_action(
 						$post_id = $block_instance->context['termId'];
 					}
 					if ( ! $post_id ) {
-						return 'https://placehold.co/400';
+						return '';
 					}
 					$thumbnail_id = get_term_meta( $post_id, 'thumbnail_id', true );
 	    			$image = wp_get_attachment_url( $thumbnail_id );
