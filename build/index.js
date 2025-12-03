@@ -2,6 +2,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "@woocommerce/data":
+/*!******************************!*\
+  !*** external ["wc","data"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wc"]["data"];
+
+/***/ }),
+
 /***/ "@wordpress/blocks":
 /*!********************************!*\
   !*** external ["wp","blocks"] ***!
@@ -9,16 +19,6 @@
 /***/ ((module) => {
 
 module.exports = window["wp"]["blocks"];
-
-/***/ }),
-
-/***/ "@wordpress/core-data":
-/*!**********************************!*\
-  !*** external ["wp","coreData"] ***!
-  \**********************************/
-/***/ ((module) => {
-
-module.exports = window["wp"]["coreData"];
 
 /***/ }),
 
@@ -111,9 +111,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/core-data */ "@wordpress/core-data");
-/* harmony import */ var _wordpress_core_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_core_data__WEBPACK_IMPORTED_MODULE_2__);
-console.log("Hello, World!");
+/* harmony import */ var _woocommerce_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @woocommerce/data */ "@woocommerce/data");
+/* harmony import */ var _woocommerce_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_woocommerce_data__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -125,9 +124,24 @@ console.log("Hello, World!");
     select,
     context
   }) {
+    console.log(context);
+    if (!context.termId) {
+      return {
+        url: "/wp-content/uploads/woocommerce-placeholder.png",
+        alt: "Placeholder Image"
+      };
+    }
+    const {
+      termId
+    } = context;
+    const {
+      getProductCategory
+    } = select(_woocommerce_data__WEBPACK_IMPORTED_MODULE_2__.EXPERIMENTAL_PRODUCT_CATEGORIES_STORE_NAME);
+    const term = getProductCategory(termId);
+    console.log("term", term);
     return {
-      url: "/wp-content/uploads/woocommerce-placeholder.png",
-      alt: "Placeholder Image"
+      url: term?.image.src,
+      alt: term?.image.alt
     };
   }
 });

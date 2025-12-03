@@ -15,6 +15,10 @@
 		"start": "wp-scripts start --blocks-manifest"
 	},
 	"devDependencies": {
+		"@woocommerce/dependency-extraction-webpack-plugin": "^4.0.0",
 		"@wordpress/scripts": "^31.1.0"
+	},
+	"dependencies": {
+		"@woocommerce/data": "^6.0.0"
 	}
 }

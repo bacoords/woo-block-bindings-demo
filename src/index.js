@@ -1,18 +1,32 @@
-console.log("Hello, World!");
 import {
 	registerBlockBindingsSource,
 	registerBlockVariation,
 } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
-import { store as coreDataStore } from "@wordpress/core-data";
+import { EXPERIMENTAL_PRODUCT_CATEGORIES_STORE_NAME } from "@woocommerce/data";
 
 registerBlockBindingsSource({
 	name: "woo-block-bindings-demo/product-category-image",
 	label: __("Product Category Image", "custom-bindings"), // We can skip the label, as it was already defined in the server in the previous example.
 	getValues({ select, context }) {
+		console.log(context);
+		if (!context.termId) {
+			return {
+				url: "/wp-content/uploads/woocommerce-placeholder.png",
+				alt: "Placeholder Image",
+			};
+		}
+
+		const { termId } = context;
+		const { getProductCategory } = select(
+			EXPERIMENTAL_PRODUCT_CATEGORIES_STORE_NAME,
+		);
+
+		const term = getProductCategory(termId);
+		console.log("term", term);
 		return {
-			url: "/wp-content/uploads/woocommerce-placeholder.png",
-			alt: "Placeholder Image",
+			url: term?.image.src,
+			alt: term?.image.alt,
 		};
 	},
 });

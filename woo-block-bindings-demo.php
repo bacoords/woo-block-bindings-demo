@@ -25,14 +25,18 @@ add_action(
             array(
                 'label'              => __( 'Product Category Image', 'custom-bindings' ),
                 'get_value_callback' => function ( array $source_args, $block_instance ) {
-                    $post_id = get_queried_object_id();
-					if ( 'product_cat' !== get_queried_object()->taxonomy ) {
-						return '';
+					$post_id = get_queried_object_id();
+					if ( isset( $block_instance->context['termId'] ) ) {
+						$post_id = $block_instance->context['termId'];
+					}
+					if ( ! $post_id ) {
+						return 'https://placehold.co/400';
 					}
 					$thumbnail_id = get_term_meta( $post_id, 'thumbnail_id', true );
 	    			$image = wp_get_attachment_url( $thumbnail_id );
                     return $image;
                 },
+				'uses_context'      => [ 'termId' ],
             )
         );
     }
