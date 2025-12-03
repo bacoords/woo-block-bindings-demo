@@ -1,8 +1,8 @@
 {
 	"name": "woo-block-bindings-demo",
 	"version": "0.1.0",
-	"description": "Example block scaffolded with Create Block tool.",
-	"author": "The WordPress Contributors",
+	"description": "Using Block Bindings to pull in Product Category Image",
+	"author": "bacoords",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"scripts": {
