@@ -18,13 +18,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 add_action(
-    'init',
-    function () {
-        register_block_bindings_source(
-            'woo-block-bindings-demo/product-category-image',
-            array(
-                'label'              => __( 'Product Category Image', 'custom-bindings' ),
-                'get_value_callback' => function ( array $source_args, $block_instance ) {
+	'init',
+	function () {
+		register_block_bindings_source(
+			'woo-block-bindings-demo/product-category-image',
+			array(
+				'label'              => __( 'Product Category Image', 'custom-bindings' ),
+				'get_value_callback' => function ( array $source_args, $block_instance ) {
 					$post_id = get_queried_object_id();
 					if ( isset( $block_instance->context['termId'] ) ) {
 						$post_id = $block_instance->context['termId'];
@@ -32,25 +32,36 @@ add_action(
 					if ( ! $post_id ) {
 						return '';
 					}
-					$thumbnail_id = get_term_meta( $post_id, 'thumbnail_id', true );
-	    			$image = wp_get_attachment_url( $thumbnail_id );
-                    return $image;
-                },
-				'uses_context'      => [ 'termId' ],
-            )
-        );
-    }
+
+					if ( 'url' === $source_args['key'] ) {
+						$thumbnail_id = get_term_meta( $post_id, 'thumbnail_id', true );
+						$image = wp_get_attachment_url( $thumbnail_id );
+						return $image;
+					} elseif ( 'alt' === $source_args['key'] ) {
+						$thumbnail_id = get_term_meta( $post_id, 'thumbnail_id', true );
+						$alt = get_post_meta( $thumbnail_id, '_wp_attachment_image_alt', true );
+						return $alt;
+					}
+					return '';
+				},
+				'uses_context'       => array( 'termId' ),
+			)
+		);
+	}
 );
 
 
-add_action("enqueue_block_editor_assets", function() {
+add_action(
+	'enqueue_block_editor_assets',
+	function () {
 
-	$asset_file = include( plugin_dir_path( __FILE__ ) . 'build/index.asset.php');
+		$asset_file = include plugin_dir_path( __FILE__ ) . 'build/index.asset.php';
 
-	wp_enqueue_script(
-		'woo-block-bindings-demo-editor-script',
-		plugins_url( 'build/index.js', __FILE__ ),
-		$asset_file['dependencies'],
-		$asset_file['version']
-	);
-});
+		wp_enqueue_script(
+			'woo-block-bindings-demo-editor-script',
+			plugins_url( 'build/index.js', __FILE__ ),
+			$asset_file['dependencies'],
+			$asset_file['version']
+		);
+	}
+);

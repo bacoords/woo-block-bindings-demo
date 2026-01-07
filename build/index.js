@@ -157,6 +157,12 @@ __webpack_require__.r(__webpack_exports__);
           args: {
             key: "url"
           }
+        },
+        alt: {
+          source: "woo-block-bindings-demo/product-category-image",
+          args: {
+            key: "alt"
+          }
         }
       }
     }

@@ -41,6 +41,10 @@ registerBlockVariation("core/image", {
 					source: "woo-block-bindings-demo/product-category-image",
 					args: { key: "url" },
 				},
+				alt: {
+					source: "woo-block-bindings-demo/product-category-image",
+					args: { key: "alt" },
+				},
 			},
 		},
 	},
