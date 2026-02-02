@@ -3,28 +3,16 @@ import {
 	registerBlockVariation,
 } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
-import { EXPERIMENTAL_PRODUCT_CATEGORIES_STORE_NAME } from "@woocommerce/data";
+
+const PLACEHOLDER_IMAGE = "/wp-content/uploads/woocommerce-placeholder.png";
 
 registerBlockBindingsSource({
 	name: "woo-block-bindings-demo/product-category-image",
-	label: __("Product Category Image", "custom-bindings"), // We can skip the label, as it was already defined in the server in the previous example.
-	getValues({ select, context }) {
-		if (!context.termId) {
-			return {
-				url: "/wp-content/uploads/woocommerce-placeholder.png",
-				alt: "Placeholder Image",
-			};
-		}
-
-		const { termId } = context;
-		const { getProductCategory } = select(
-			EXPERIMENTAL_PRODUCT_CATEGORIES_STORE_NAME,
-		);
-
-		const term = getProductCategory(termId);
+	label: __("Product Category Image", "custom-bindings"),
+	getValues({ context }) {
 		return {
-			url: term?.image.src,
-			alt: term?.image.alt,
+			url: PLACEHOLDER_IMAGE,
+			alt: "Placeholder Image",
 		};
 	},
 });
